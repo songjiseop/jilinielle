@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ResumeTailorAI - Customize Your Application Materials</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            color: #333;
+            line-height: 1.6;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        header {
+            text-align: center;
+            padding: 30px 0;
+            margin-bottom: 30px;
+        }
+        
+        header h1 {
+            font-size: 2.8rem;
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        
+        header p {
+            font-size: 1.2rem;
+            color: #7f8c8d;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        .ai-highlight {
+            color: #3498db;
+            font-weight: 600;
+        }
+        
+        .card {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            margin-bottom: 30px;
+            transition: transform 0.3s ease;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .card h2 {
+            color: #2c3e50;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .upload-area {
+            border: 2px dashed #3498db;
+            border-radius: 10px;
+            padding: 40px;
+            text-align: center;
+            margin-bottom: 25px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .upload-area:hover {
+            background-color: #f8f9fa;
+        }
+        
+        .upload-area i {
+            font-size: 3rem;
+            color: #3498db;
+            margin-bottom: 15px;
+        }
+        
+        .upload-area p {
+            color: #7f8c8d;
+            margin: 10px 0;
+        }
+        
+        .form-group {
+            margin-bottom: 25px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #2c3e50;
+        }
+        
+        .form-group input {
+            width: 100%;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+        }
+        
+        button {
+            background: #3498db;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s ease;
+            display: block;
+            width: 100%;
+        }
+        
+        button:hover {
+            background: #2980b9;
+        }
+        
+        .result-preview {
+            display: flex;
+            gap: 30px;
+            margin-top: 40px;
+        }
+        
+        .preview-card {
+            flex: 1;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            padding: 25px;
+        }
+        
+        .preview-card h3 {
+            color: #2c3e50;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #3498db;
+            margin-bottom: 20px;
+        }
+        
+        .preview-content {
+            min-height: 300px;
+        }
+        
+        .features {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin: 40px 0;
+        }
+        
+        .feature {
+            flex: 1;
+            min-width: 250px;
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        .feature i {
+            font-size: 2rem;
+            color: #3498db;
+            margin-bottom: 15px;
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 50px;
+            padding: 20px;
+            color: #7f8c8d;
+        }
+        
+        @media (max-width: 768px) {
+            .result-preview {
+                flex-direction: column;
+            }
+            
+            header h1 {
+                font-size: 2.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Resume<span class="ai-highlight">TailorAI</span></h1>
+            <p>Upload your resume and a job description, and our AI will tailor your application materials to match the job perfectly</p>
+        </header>
+        
+        <div class="card">
+            <h2><i class="fas fa-file-upload"></i> Upload Your Documents</h2>
+            
+            <div class="upload-area" id="dropZone">
+                <i class="fas fa-cloud-upload-alt"></i>
+                <h3>Drag & Drop Your Resume</h3>
+                <p>PDF or Word Document (max 5MB)</p>
+                <p>or</p>
+                <button>Select File</button>
+            </div>
+            
+            <div class="form-group">
+                <label for="jobUrl"><i class="fas fa-link"></i> LinkedIn Job URL</label>
+                <input type="text" id="jobUrl" placeholder="Paste the LinkedIn job description URL here">
+            </div>
+            
+            <button id="generateBtn"><i class="fas fa-magic"></i> Generate Tailored Documents</button>
+        </div>
+        
+        <div class="features">
+            <div class="feature">
+                <i class="fas fa-file-alt"></i>
+                <h3>Tailored Resume</h3>
+                <p>Our AI analyzes the job requirements and prioritizes your skills and experience accordingly.</p>
+            </div>
+            <div class="feature">
+                <i class="fas fa-envelope-open-text"></i>
+                <h3>Custom Cover Letter</h3>
+                <p>Get a professionally crafted cover letter that highlights your fit for the specific role.</p>
+            </div>
+            <div class="feature">
+                <i class="fas fa-bullseye"></i>
+                <h3>Values Alignment</h3>
+                <p>The AI identifies company values and shows how your experience aligns with their culture.</p>
+            </div>
+        </div>
+        
+        <h2>Example Output Preview</h2>
+        <div class="result-preview">
+            <div class="preview-card">
+                <h3>Tailored Resume</h3>
+                <div class="preview-content">
+                    <p>• <strong>Senior UX Designer</strong> - 5 years experience prioritized</p>
+                    <p>• <strong>Figma</strong> - highlighted as primary skill</p>
+                    <p>• <strong>User Research</strong> - emphasized based on job requirements</p>
+                    <p>• <strong>Project Leadership</strong> - showcased with metrics</p>
+                    <p>• <strong>Agile Methodology</strong> - featured prominently</p>
+                </div>
+            </div>
+            
+            <div class="preview-card">
+                <h3>Custom Cover Letter</h3>
+                <div class="preview-content">
+                    <p>Dear Hiring Manager,</p>
+                    <p>I was excited to see your opening for a Senior UX Designer at TechInnovate. Your commitment to user-centered design aligns perfectly with my approach to creating intuitive digital experiences.</p>
+                    <p>My 5 years of experience with Figma and user research methodologies directly match your requirements...</p>
+                </div>
+            </div>
+        </div>
+        
+        <footer>
+            <p>ResumeTailorAI &copy; 2023 | AI-Powered Job Application Materials</p>
+        </footer>
+    </div>
+
+    <script>
+        // Simple animation for the generate button
+        document.getElementById('generateBtn').addEventListener('click', function() {
+            this.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Processing...';
+            
+            // Simulate processing time
+            setTimeout(() => {
+                this.innerHTML = '<i class="fas fa-check"></i> Documents Ready!';
+                this.style.background = '#2ecc71';
+                
+                // Show a simulated success message
+                alert('Documents generated successfully! This is a frontend demo. In a real application, your tailored resume and cover letter would be available for download.');
+            }, 2000);
+        });
+        
+        // Add some interactivity to the upload area
+        const dropZone = document.getElementById('dropZone');
+        
+        dropZone.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            dropZone.style.borderColor = '#2ecc71';
+            dropZone.style.background = '#f8f9fa';
+        });
+        
+        dropZone.addEventListener('dragleave', () => {
+            dropZone.style.borderColor = '#3498db';
+            dropZone.style.background = 'transparent';
+        });
+        
+        dropZone.addEventListener('click', () => {
+            alert('File upload dialog would open here. This is a frontend demo.');
+        });
+    </script>
+</body>
+</html>
