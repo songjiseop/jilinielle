@@ -5,17 +5,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ResumeTailorAI - Customize Your Application Materials</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
         
         body {
-            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-            color: #333;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background: linear-gradient(135deg, #faf5ef 0%, #f0e6d9 100%);
+            color: #5a4c41;
             line-height: 1.6;
             min-height: 100vh;
             padding: 20px;
@@ -28,72 +29,91 @@
         
         header {
             text-align: center;
-            padding: 30px 0;
-            margin-bottom: 30px;
+            padding: 40px 0;
+            margin-bottom: 20px;
         }
         
-        header h1 {
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.2rem;
+            color: #8b7355;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+        }
+        
+        .logo i {
             font-size: 2.8rem;
-            color: #2c3e50;
-            margin-bottom: 10px;
+            color: #d4a76a;
         }
         
         header p {
             font-size: 1.2rem;
-            color: #7f8c8d;
+            color: #8b7d6e;
             max-width: 700px;
             margin: 0 auto;
-        }
-        
-        .ai-highlight {
-            color: #3498db;
-            font-weight: 600;
+            font-weight: 300;
         }
         
         .card {
-            background: white;
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-            padding: 30px;
+            background: rgba(255, 251, 245, 0.9);
+            border-radius: 20px;
+            box-shadow: 0 8px 25px rgba(139, 115, 85, 0.1);
+            padding: 35px;
             margin-bottom: 30px;
-            transition: transform 0.3s ease;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 1px solid rgba(212, 167, 106, 0.2);
         }
         
         .card:hover {
             transform: translateY(-5px);
+            box-shadow: 0 12px 30px rgba(139, 115, 85, 0.15);
         }
         
         .card h2 {
-            color: #2c3e50;
-            margin-bottom: 20px;
+            color: #8b7355;
+            margin-bottom: 25px;
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
+            font-family: 'Playfair Display', serif;
+            font-weight: 600;
         }
         
         .upload-area {
-            border: 2px dashed #3498db;
-            border-radius: 10px;
-            padding: 40px;
+            border: 2px dashed #d4a76a;
+            border-radius: 16px;
+            padding: 50px 30px;
             text-align: center;
             margin-bottom: 25px;
             transition: all 0.3s ease;
             cursor: pointer;
+            background: rgba(255, 248, 238, 0.5);
         }
         
         .upload-area:hover {
-            background-color: #f8f9fa;
+            background: rgba(255, 241, 223, 0.8);
+            border-color: #c99752;
         }
         
         .upload-area i {
-            font-size: 3rem;
-            color: #3498db;
-            margin-bottom: 15px;
+            font-size: 3.5rem;
+            color: #d4a76a;
+            margin-bottom: 20px;
+        }
+        
+        .upload-area h3 {
+            color: #8b7355;
+            margin-bottom: 10px;
+            font-family: 'Playfair Display', serif;
         }
         
         .upload-area p {
-            color: #7f8c8d;
-            margin: 10px 0;
+            color: #a08c76;
+            margin: 8px 0;
+            font-size: 0.95rem;
         }
         
         .form-group {
@@ -102,35 +122,53 @@
         
         .form-group label {
             display: block;
-            margin-bottom: 8px;
-            font-weight: 600;
-            color: #2c3e50;
+            margin-bottom: 10px;
+            font-weight: 500;
+            color: #8b7355;
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
         
         .form-group input {
             width: 100%;
-            padding: 15px;
-            border: 1px solid #ddd;
-            border-radius: 8px;
+            padding: 16px 20px;
+            border: 1px solid #e5d9c9;
+            border-radius: 12px;
             font-size: 1rem;
+            background: #fffdf9;
+            color: #5a4c41;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .form-group input:focus {
+            outline: none;
+            border-color: #d4a76a;
+            box-shadow: 0 0 0 3px rgba(212, 167, 106, 0.2);
         }
         
         button {
-            background: #3498db;
+            background: linear-gradient(135deg, #d4a76a 0%, #c99752 100%);
             color: white;
             border: none;
-            padding: 15px 30px;
-            border-radius: 8px;
+            padding: 18px 35px;
+            border-radius: 12px;
             font-size: 1.1rem;
             font-weight: 600;
             cursor: pointer;
-            transition: background 0.3s ease;
-            display: block;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
             width: 100%;
+            box-shadow: 0 4px 15px rgba(212, 167, 106, 0.3);
         }
         
         button:hover {
-            background: #2980b9;
+            background: linear-gradient(135deg, #c99752 0%, #bf8a45 100%);
+            box-shadow: 0 6px 18px rgba(212, 167, 106, 0.4);
+            transform: translateY(-2px);
         }
         
         .result-preview {
@@ -141,50 +179,111 @@
         
         .preview-card {
             flex: 1;
-            background: white;
-            border-radius: 15px;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            background: rgba(255, 251, 245, 0.9);
+            border-radius: 18px;
+            box-shadow: 0 5px 20px rgba(139, 115, 85, 0.08);
             padding: 25px;
+            border: 1px solid rgba(212, 167, 106, 0.15);
         }
         
         .preview-card h3 {
-            color: #2c3e50;
+            color: #8b7355;
             padding-bottom: 15px;
-            border-bottom: 2px solid #3498db;
+            border-bottom: 2px solid #d4a76a;
             margin-bottom: 20px;
+            font-family: 'Playfair Display', serif;
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
         
         .preview-content {
             min-height: 300px;
+            color: #5a4c41;
+            line-height: 1.7;
         }
         
         .features {
             display: flex;
             flex-wrap: wrap;
-            gap: 20px;
+            gap: 25px;
             margin: 40px 0;
         }
         
         .feature {
             flex: 1;
             min-width: 250px;
-            background: white;
-            border-radius: 10px;
-            padding: 20px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            background: rgba(255, 251, 245, 0.9);
+            border-radius: 16px;
+            padding: 25px;
+            box-shadow: 0 5px 15px rgba(139, 115, 85, 0.05);
+            border: 1px solid rgba(212, 167, 106, 0.1);
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+        
+        .feature:hover {
+            transform: translateY(-5px);
         }
         
         .feature i {
-            font-size: 2rem;
-            color: #3498db;
+            font-size: 2.5rem;
+            color: #d4a76a;
+            margin-bottom: 20px;
+            background: rgba(212, 167, 106, 0.1);
+            width: 70px;
+            height: 70px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            margin: 0 auto 20px;
+        }
+        
+        .feature h3 {
+            color: #8b7355;
             margin-bottom: 15px;
+            font-family: 'Playfair Display', serif;
+        }
+        
+        .feature p {
+            color: #8b7d6e;
+            line-height: 1.6;
         }
         
         footer {
             text-align: center;
-            margin-top: 50px;
-            padding: 20px;
-            color: #7f8c8d;
+            margin-top: 60px;
+            padding: 30px;
+            color: #a08c76;
+            font-size: 0.9rem;
+        }
+        
+        .cute-element {
+            position: absolute;
+            z-index: -1;
+            opacity: 0.15;
+        }
+        
+        .cute-1 {
+            top: 10%;
+            left: 5%;
+            font-size: 80px;
+            color: #d4a76a;
+        }
+        
+        .cute-2 {
+            top: 40%;
+            right: 5%;
+            font-size: 70px;
+            color: #d4a76a;
+        }
+        
+        .cute-3 {
+            bottom: 20%;
+            left: 10%;
+            font-size: 60px;
+            color: #d4a76a;
         }
         
         @media (max-width: 768px) {
@@ -195,25 +294,42 @@
             header h1 {
                 font-size: 2.2rem;
             }
+            
+            .logo {
+                font-size: 2.5rem;
+            }
+            
+            .cute-element {
+                display: none;
+            }
         }
     </style>
 </head>
 <body>
+    <div class="cute-element cute-1">✦</div>
+    <div class="cute-element cute-2">❀</div>
+    <div class="cute-element cute-3">❤</div>
+    
     <div class="container">
         <header>
-            <h1>Resume<span class="ai-highlight">TailorAI</span></h1>
+            <div class="logo">
+                <i class="fas fa-feather-alt"></i>
+                <span>ResumeTailorAI</span>
+            </div>
             <p>Upload your resume and a job description, and our AI will tailor your application materials to match the job perfectly</p>
         </header>
         
         <div class="card">
-            <h2><i class="fas fa-file-upload"></i> Upload Your Documents</h2>
+            <h2><i class="fas fa-cloud-upload-alt"></i> Upload Your Documents</h2>
             
             <div class="upload-area" id="dropZone">
-                <i class="fas fa-cloud-upload-alt"></i>
-                <h3>Drag & Drop Your Resume</h3>
+                <i class="fas fa-file-import"></i>
+                <h3>Drag & Drop Your Resume Here</h3>
                 <p>PDF or Word Document (max 5MB)</p>
                 <p>or</p>
-                <button>Select File</button>
+                <button style="width: auto; display: inline-block; padding: 12px 25px;">
+                    <i class="fas fa-folder-open"></i> Select File
+                </button>
             </div>
             
             <div class="form-group">
@@ -221,7 +337,9 @@
                 <input type="text" id="jobUrl" placeholder="Paste the LinkedIn job description URL here">
             </div>
             
-            <button id="generateBtn"><i class="fas fa-magic"></i> Generate Tailored Documents</button>
+            <button id="generateBtn">
+                <i class="fas fa-magic"></i> Generate Tailored Documents
+            </button>
         </div>
         
         <div class="features">
@@ -236,16 +354,18 @@
                 <p>Get a professionally crafted cover letter that highlights your fit for the specific role.</p>
             </div>
             <div class="feature">
-                <i class="fas fa-bullseye"></i>
+                <i class="fas fa-heart"></i>
                 <h3>Values Alignment</h3>
                 <p>The AI identifies company values and shows how your experience aligns with their culture.</p>
             </div>
         </div>
         
-        <h2>Example Output Preview</h2>
+        <h2 style="color: #8b7355; font-family: 'Playfair Display', serif; margin-bottom: 20px;">
+            <i class="fas fa-eye"></i> Example Output Preview
+        </h2>
         <div class="result-preview">
             <div class="preview-card">
-                <h3>Tailored Resume</h3>
+                <h3><i class="fas fa-file-alt"></i> Tailored Resume</h3>
                 <div class="preview-content">
                     <p>• <strong>Senior UX Designer</strong> - 5 years experience prioritized</p>
                     <p>• <strong>Figma</strong> - highlighted as primary skill</p>
@@ -256,7 +376,7 @@
             </div>
             
             <div class="preview-card">
-                <h3>Custom Cover Letter</h3>
+                <h3><i class="fas fa-envelope"></i> Custom Cover Letter</h3>
                 <div class="preview-content">
                     <p>Dear Hiring Manager,</p>
                     <p>I was excited to see your opening for a Senior UX Designer at TechInnovate. Your commitment to user-centered design aligns perfectly with my approach to creating intuitive digital experiences.</p>
@@ -266,22 +386,29 @@
         </div>
         
         <footer>
-            <p>ResumeTailorAI &copy; 2023 | AI-Powered Job Application Materials</p>
+            <p>Made with <i class="fas fa-heart" style="color: #d4a76a;"></i> • jilinielle &copy; 2025</p>
         </footer>
     </div>
 
     <script>
         // Simple animation for the generate button
         document.getElementById('generateBtn').addEventListener('click', function() {
+            const originalText = this.innerHTML;
             this.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Processing...';
+            this.disabled = true;
             
             // Simulate processing time
             setTimeout(() => {
                 this.innerHTML = '<i class="fas fa-check"></i> Documents Ready!';
-                this.style.background = '#2ecc71';
+                this.style.background = 'linear-gradient(135deg, #a3c293 0%, #87a96b 100%)';
                 
                 // Show a simulated success message
-                alert('Documents generated successfully! This is a frontend demo. In a real application, your tailored resume and cover letter would be available for download.');
+                setTimeout(() => {
+                    alert('Documents generated successfully! This is a frontend demo. In a real application, your tailored resume and cover letter would be available for download.');
+                    this.innerHTML = originalText;
+                    this.disabled = false;
+                    this.style.background = 'linear-gradient(135deg, #d4a76a 0%, #c99752 100%)';
+                }, 1000);
             }, 2000);
         });
         
@@ -290,13 +417,13 @@
         
         dropZone.addEventListener('dragover', (e) => {
             e.preventDefault();
-            dropZone.style.borderColor = '#2ecc71';
-            dropZone.style.background = '#f8f9fa';
+            dropZone.style.borderColor = '#a3c293';
+            dropZone.style.background = 'rgba(227, 240, 218, 0.5)';
         });
         
         dropZone.addEventListener('dragleave', () => {
-            dropZone.style.borderColor = '#3498db';
-            dropZone.style.background = 'transparent';
+            dropZone.style.borderColor = '#d4a76a';
+            dropZone.style.background = 'rgba(255, 248, 238, 0.5)';
         });
         
         dropZone.addEventListener('click', () => {
