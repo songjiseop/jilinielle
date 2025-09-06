@@ -391,44 +391,152 @@
     </div>
 
     <script>
-        // Simple animation for the generate button
-        document.getElementById('generateBtn').addEventListener('click', function() {
-            const originalText = this.innerHTML;
-            this.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Processing...';
-            this.disabled = true;
-            
-            // Simulate processing time
-            setTimeout(() => {
-                this.innerHTML = '<i class="fas fa-check"></i> Documents Ready!';
-                this.style.background = 'linear-gradient(135deg, #a3c293 0%, #87a96b 100%)';
-                
-                // Show a simulated success message
-                setTimeout(() => {
-                    alert('Documents generated successfully! This is a frontend demo. In a real application, your tailored resume and cover letter would be available for download.');
-                    this.innerHTML = originalText;
-                    this.disabled = false;
-                    this.style.background = 'linear-gradient(135deg, #d4a76a 0%, #c99752 100%)';
-                }, 1000);
-            }, 2000);
-        });
-        
-        // Add some interactivity to the upload area
+        // File upload functionality
         const dropZone = document.getElementById('dropZone');
-        
-        dropZone.addEventListener('dragover', (e) => {
+        const fileInput = document.getElementById('file-input');
+        const uploadedFiles = document.getElementById('uploadedFiles');
+
+        // Backend API URL - change this to your actual backend URL
+        const API_URL = 'http://localhost:3000/api';
+
+        // Click on dropzone to trigger file input
+        dropZone.addEventListener('click', (e) => {
+            if (!e.target.classList.contains('upload-btn')) {
+                fileInput.click();
+            }
+        });
+
+        // File input change event
+        fileInput.addEventListener('change', handleFileSelect);
+
+        // Drag and drop events
+        ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+            dropZone.addEventListener(eventName, preventDefaults, false);
+        });
+
+        function preventDefaults(e) {
             e.preventDefault();
-            dropZone.style.borderColor = '#a3c293';
-            dropZone.style.background = 'rgba(227, 240, 218, 0.5)';
+            e.stopPropagation();
+        }
+
+        ['dragenter', 'dragover'].forEach(eventName => {
+            dropZone.addEventListener(eventName, highlight, false);
         });
-        
-        dropZone.addEventListener('dragleave', () => {
-            dropZone.style.borderColor = '#d4a76a';
-            dropZone.style.background = 'rgba(255, 248, 238, 0.5)';
+
+        ['dragleave', 'drop'].forEach(eventName => {
+            dropZone.addEventListener(eventName, unhighlight, false);
         });
-        
-        dropZone.addEventListener('click', () => {
-            alert('File upload dialog would open here. This is a frontend demo.');
-        });
+
+        function highlight() {
+            dropZone.classList.add('highlight');
+        }
+
+        function unhighlight() {
+            dropZone.classList.remove('highlight');
+        }
+
+        dropZone.addEventListener('drop', handleDrop, false);
+
+        function handleDrop(e) {
+            const dt = e.dataTransfer;
+            const files = dt.files;
+            handleFiles(files);
+        }
+
+        function handleFileSelect(e) {
+            const files = e.target.files;
+            handleFiles(files);
+        }
+
+        async function handleFiles(files) {
+            if (files.length > 0) {
+                const file = files[0];
+                
+                // Check file type
+                const validTypes = ['application/pdf', 'application/msword', 
+                                'application/vnd.openxmlformats-officedocument.wordprocessingml.document'];
+                if (!validTypes.includes(file.type)) {
+                    alert('Please upload a PDF or Word document.');
+                    return;
+                }
+                
+                // Check file size (5MB max)
+                if (file.size > 5 * 1024 * 1024) {
+                    alert('File size exceeds 5MB. Please upload a smaller file.');
+                    return;
+                }
+                
+                // Display the uploaded file
+                displayFile(file);
+                
+                // Upload to backend
+                await uploadToBackend(file);
+            }
+        }
+
+        async function uploadToBackend(file) {
+            const formData = new FormData();
+            formData.append('resume', file);
+            
+            try {
+                const response = await fetch(`${API_URL}/upload`, {
+                    method: 'POST',
+                    body: formData
+                });
+                
+                if (!response.ok) {
+                    throw new Error('Upload failed');
+                }
+                
+                const result = await response.json();
+                console.log('Upload successful:', result);
+                alert('File uploaded successfully to the server!');
+                
+            } catch (error) {
+                console.error('Upload error:', error);
+                alert('Failed to upload file. Please check if the backend server is running.');
+            }
+        }
+
+        function displayFile(file) {
+            const fileSize = formatFileSize(file.size);
+            const fileType = getFileType(file.type);
+            
+            const fileItem = document.createElement('div');
+            fileItem.className = 'file-item';
+            fileItem.innerHTML = `
+                <div class="file-info">
+                    <span class="file-icon"><i class="fas fa-file-${fileType}"></i></span>
+                    <div>
+                        <div class="file-name">${file.name}</div>
+                        <div class="file-size">${fileSize}</div>
+                    </div>
+                </div>
+                <button class="delete-btn" onclick="removeFile(this)"><i class="fas fa-times"></i></button>
+            `;
+            
+            uploadedFiles.appendChild(fileItem);
+        }
+
+        function formatFileSize(bytes) {
+            if (bytes === 0) return '0 Bytes';
+            const k = 1024;
+            const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+            const i = Math.floor(Math.log(bytes) / Math.log(k));
+            return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+        }
+
+        function getFileType(type) {
+            if (type === 'application/pdf') return 'pdf';
+            if (type.includes('word')) return 'word';
+            return 'alt';
+        }
+
+        function removeFile(button) {
+            const fileItem = button.parentElement;
+            fileItem.remove();
+        }
     </script>
+
 </body>
 </html>
