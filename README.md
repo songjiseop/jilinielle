@@ -11,8 +11,8 @@ A web application that uses AI to tailor resumes and cover letters for specific 
 ## Tutorial on how to run website
 
 ## Prerequisites:
-- Node
-- Python
+- Node (from nodejs.org)
+- Python (from python.org)
 
 ## Backend Setup
 - cd backend
