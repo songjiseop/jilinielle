@@ -23,3 +23,7 @@ A web application that uses AI to tailor resumes and cover letters for specific 
 - cd frontend
 - npm install
 - npm start
+
+## Notes
+- Make sure backend is running first, then run frontend
+- Install any missing dependencies with npm install <package> or pip install <package> if errors occur
