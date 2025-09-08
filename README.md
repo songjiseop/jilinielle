@@ -21,6 +21,7 @@ A web application that uses AI to tailor resumes and cover letters for specific 
 
 ## Frontend Setup
 - cd frontend/app
+- optional (activate virtual environment)
 - npm install
 - npm start
 
