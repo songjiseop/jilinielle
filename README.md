@@ -20,7 +20,7 @@ A web application that uses AI to tailor resumes and cover letters for specific 
 - python app.py
 
 ## Frontend Setup
-- cd frontend
+- cd frontend/app
 - npm install
 - npm start
 
