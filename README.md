@@ -15,11 +15,11 @@ A web application that uses AI to tailor resumes and cover letters for specific 
 - Python
 
 ## Backend Setup
-cd backend
-pip install -r requirements.txt
-python app.py
+- cd backend
+- pip install -r requirements.txt
+- python app.py
 
 ## Frontend Setup
-cd frontend
-npm install
-npm start
+- cd frontend
+- npm install
+- npm start
